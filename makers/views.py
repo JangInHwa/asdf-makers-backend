@@ -19,6 +19,7 @@ class Group(APIView):
 			application = Application()
 			application.applicant = request.user
 			application.group = group
+			application.postion = application.ADMIN
 			application.save()
 			return Response(GroupSerializer(group).data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
