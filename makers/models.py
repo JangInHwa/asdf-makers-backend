@@ -11,6 +11,15 @@ class Group(models.Model):
 	expected_period_start = models.DateField(null=True)
 	expected_period_end = models.DateField(null=True)
 	created = models.DateTimeField(editable=False, auto_now_add=True)
+	WAITING = 'WAITING'
+	IN_PROGRESS = 'IN_PROGRESS'
+	DONE = 'DONE'
+	PROGRESS_STATUS_CHOICES = (
+		('WAITING', 'wating for open'),
+		('IN_PROGRESS', 'project is working on it'),
+		('DONE', 'project is done')
+	)
+	progress_status = models.CharField(max_length=20, choices=PROGRESS_STATUS_CHOICES, default=WAITING)
 
 
 #분야를 나타냄 Flutter, Django 등등..
@@ -30,17 +39,8 @@ class Application(models.Model):
 		(MEMBER, 'member'),
 		(ADMIN, 'admin who has permissions')
 	)
-	WAITING = 'WAITING'
-	IN_PROGRESS = 'IN_PROGRESS'
-	DONE = 'DONE'
-	PROGRESS_STATUS_CHOICES = (
-		('WAITING', 'wating for open'),
-		('IN_PROGRESS', 'project is working on it'),
-		('DONE', 'project is done')
-	)
 
 	applicant = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='applications')
 	field = models.ForeignKey(Field, null=True, on_delete=models.SET_NULL)
 	group = models.ForeignKey(Group, related_name='applications', on_delete=models.CASCADE)
 	postion = models.CharField(max_length=10, choices=POSITION_CHOICES, default=REQUESTED)
-	progress_status = models.CharField(max_length=20, choices=PROGRESS_STATUS_CHOICES, default=WAITING)
