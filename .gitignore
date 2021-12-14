@@ -1,0 +1,8 @@
+.idea
+db.sqlite3
+*.log
+*.pot
+*.pyc
+__pycache__
+.mypy_cache
+config.sh
