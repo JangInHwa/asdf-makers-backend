@@ -40,5 +40,4 @@ class UserDetail(APIView):
     def get(self, request: Request, pk: int):
         user = get_object_or_404(User, pk=pk)
         serializer = UserSerializer(user)
-        print(serializer.data)
         return Response(serializer.data)
