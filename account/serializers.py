@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 	applications = ApplicationSerializer(many=True, read_only=True)
 	class Meta:
 		model = User
-		exclude = ('is_superuser','is_active', 'user_permissions')
+		exclude = ('is_superuser','is_active', 'user_permissions', 'groups')
 		extra_kwargs = {"password" : {"write_only" : True}}
 	
 	def create(self, validated_data):
